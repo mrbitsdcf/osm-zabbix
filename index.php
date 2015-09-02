@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Ugly page with map</title>
+    <title>IURD - Templos</title>
     <link rel="stylesheet" href="http://openlayers.org/dev/theme/default/style.css" type="text/css">
     <link rel="stylesheet" href="http://openlayers.org/dev/examples/style.css" type="text/css">
     <style type="text/css">
@@ -68,7 +68,7 @@
                         array_push($layers, $layer);
                         print("\tvar " . $layer . " = new OpenLayers.Layer.Vector( \"" . $groupname . $layer_suffix_name . "\", { strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1.1})], protocol: new OpenLayers.Protocol.HTTP({ url:\"osm-zabbix.php?type=" . $layer_suffix . "&groupid=" . $groupid . "\", format: new OpenLayers.Format.Text() }) });\n");
                         print("\tmap.addLayer(" . $layer . ");\n");
-                        if($layer_suffix == 'ok') { print("\t" . $layer . ".setVisibility(false);\n"); }
+                        if($layer_suffix == 'ok') { print("\t" . $layer . ".setVisibility(true);\n"); }
                     }
                 }
                 print("\tselectControl = new OpenLayers.Control.SelectFeature([" . implode(",",$layers) . "], { clickout: true, eventListeners: { featurehighlighted: onFeatureSelect, featureunhighlighted: onFeatureUnselect } });\n");
@@ -129,7 +129,7 @@
   </head>
   <body onload="init(); checkReloading();">
     <a href="<?php require('osm-zabbix.conf.php'); print($zbx_url)?>">Zabbix</a>
-    <h3>Ugly page with map</h3>
+    <h3>IURD - Templos - Status dos Links</h3>
     <div id="basicMap"></div>
     <div id="layerswitcher" class="olControlLayerSwitcher"></div>
     <input type="checkbox" onclick="toggleAutoRefresh(this);" id="reloadCB">Reload page every 30s</input><br/>

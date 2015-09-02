@@ -142,16 +142,21 @@ if(isset($groupid) and intval($groupid)>0 and ($type == 'ok' or $type == 'proble
                 $problems[$hostid] = $problem;
             }
             $points[$hostid] = $host->inventory->location_lat . "," . $host->inventory->location_lon;
-            $hostnames[$hostid] = $host->name . " (" . $host->host . ")";
+            $contacts[$hostid] = $host->inventory->poc_1_name . " - " . $host->inventory->poc_1_phone_a;
+            $address[$hostid] = $host->inventory->site_address_a . " - " . $host->inventory->site_address_b . " - " . $host->inventory->site_city . " - " . $host->inventory->site_state;
+            //$hostnames[$hostid] = $host->name . " (" . $host->host . ")";
+            $hostnames[$hostid] = $host->name . " (" . $host->host . ")" . "<br>" . $contacts[$hostid] . "<br>" . $address[$hostid];
         }
     }
 
     $overview_url = "/overview.php?type=0&groupid=" . $groupid . "&request=overview.php%3Ftype%3D0%26groupid%3D" . $groupid;
     $overview_url = "<br/><br/><a href=\"" . $zbx_url . $overview_url . "\">Group overview</a>";
+    //$layer = "point\ttitle\tcontacts\taddress\tdescription\ticon\n";
     $layer = "point\ttitle\tdescription\ticon\n";
 
     foreach($hostids as $hostid) {
         if(($type == 'problems' and $problems[$hostid] != 'OK') or ($type == 'ok' and $problems[$hostid] == 'OK')) {
+            //$layer = $layer . $points[$hostid] . "\t" . $groupname . ": " . $hostnames[$hostid] . "\t" . $contacts[$hostid] . "\t" . $address[$hostid] . "\t" . "Trigger(s): " . $problems[$hostid] . $overview_url . "\t" . $icons[$hostid] . "\n";
             $layer = $layer . $points[$hostid] . "\t" . $groupname . ": " . $hostnames[$hostid] . "\t" . "Trigger(s): " . $problems[$hostid] . $overview_url . "\t" . $icons[$hostid] . "\n";
         }
     }
